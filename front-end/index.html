@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Face Recognition</title>
+</head>
+<body>
+    <h1>Face Recognition System</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="capture">Capture</button>
+    
+    <label for="upload">Pilih Gambar:</label>
+    <input type="file" id="upload" accept="image/*">
+    <button id="upload-btn" style="display:none;">Upload</button> <!-- Tombol upload yang tersembunyi -->
+    
+    <div id="result"></div>
+    <script src="/static/script.js"></script>
+</body>
+</html>

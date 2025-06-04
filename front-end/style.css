@@ -1,0 +1,52 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Memusatkan konten secara horizontal */
+    justify-content: flex-start;  /* Mengatur konten untuk mulai dari atas */
+    height: 100vh;  /* Mengatur tinggi body agar memenuhi viewport */
+    margin: 0;  /* Menghapus margin default */
+    padding: 20px;  /* Menambahkan padding di sekitar konten */
+    background-color: #f0f0f0;  /* Warna latar belakang yang lebih lembut */
+}
+
+h1 {
+    text-align: center;
+    color: #333;  /* Warna teks judul */
+    margin-bottom: 20px;  /* Memberikan jarak di bawah judul */
+}
+
+#video {
+    border: 2px solid #007BFF;  /* Mengubah warna border video */
+    border-radius: 10px;  /* Membuat sudut video menjadi bulat */
+    margin-bottom: 20px;  /* Memberikan jarak di bawah video */
+    width: 100%;  /* Mengatur lebar video sesuai dengan kontainer */
+    max-width: 640px;  /* Membatasi lebar maksimum video */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Menambahkan bayangan untuk efek kedalaman */
+}
+
+button {
+    background-color: #007BFF;  /* Warna latar belakang tombol */
+    color: white;  /* Warna teks tombol */
+    border: none;  /* Menghapus border default */
+    border-radius: 5px;  /* Membuat sudut tombol menjadi bulat */
+    padding: 10px 20px;  /* Menambahkan padding di dalam tombol */
+    cursor: pointer;  /* Mengubah kursor saat hover */
+    transition: background-color 0.3s;  /* Efek transisi saat hover */
+}
+
+button:hover {
+    background-color: #0056b3;  /* Warna saat hover */
+}
+
+#result {
+    margin-top: 20px;
+    text-align: center;
+    max-width: 80%;  /* Membatasi lebar agar tidak terlalu lebar */
+    word-wrap: break-word;  /* Memastikan teks tidak keluar dari batas */
+    background-color: #fff;  /* Latar belakang putih untuk hasil */
+    padding: 15px;  /* Menambahkan padding di dalam hasil */
+    border-radius: 5px;  /* Membuat sudut hasil menjadi bulat */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Menambahkan bayangan untuk efek kedalaman */
+    margin-bottom: 20px;  /* Memberikan jarak di bawah hasil */
+}

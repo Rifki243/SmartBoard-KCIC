@@ -1,17 +1,3 @@
-# import cv2
-# import numpy as np
-
-# def load_model():
-#     # Muat model pre-trained Anda di sini
-#     # Contoh: model = cv2.face.LBPHFaceRecognizer_create()
-#     return model
-
-# def predict_face(image, model):
-#     # Deteksi wajah dan kembalikan nama, tiket, dan jadwal
-#     # Misal:
-#     # return "Nama Penumpang", "Nomor Tiket", "Jadwal Keberangkatan"
-#     return "John Doe", "12345", "2025-06-03 12:00"
-
 """
 dummy model
 """

@@ -104,4 +104,4 @@ uvicorn main:app --reload
 
 ## 📌 Lisensi
 
-MIT License © 2025 – [Your Name / Organization]
+GNU General Public License v3.0 – [AidlF4jr1i / CC25-CR349]

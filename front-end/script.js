@@ -1,78 +1,56 @@
 const video = document.getElementById('video');
-const captureButton = document.getElementById('capture');
-const uploadInput = document.getElementById('upload');
 const resultDiv = document.getElementById('result');
-const uploadButton = document.getElementById('upload-btn'); // Tambahkan referensi ke tombol upload
+const overlay = document.getElementById('overlay');
+const ctx = overlay.getContext('2d');
 
-// Akses kamera
 navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
         video.srcObject = stream;
-    });
 
-// Tangkap gambar dari video
-captureButton.addEventListener('click', () => {
-    const canvas = document.createElement('canvas');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    const context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0);
-    canvas.toBlob(blob => {
-        const formData = new FormData();
-        formData.append('file', blob, 'image.jpg');  // Pastikan nama file sesuai
+        setInterval(() => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0);
 
-        // Mengirim gambar ke endpoint capture-frame
-        fetch('/capture-frame/', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            resultDiv.innerHTML = `Nama: ${data.name}, Tiket: ${data.ticket}, Jadwal: ${data.schedule}, Pesan: ${data.message}`;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            resultDiv.innerHTML = 'Terjadi kesalahan saat mengupload gambar.';
-        });
-    });
-});
+            canvas.toBlob(blob => {
+                const formData = new FormData();
+                formData.append('file', blob, 'frame.jpg');
 
-// Mengupload foto manual
-uploadInput.addEventListener('change', () => {
-    const file = uploadInput.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
+                fetch('/auto-detect/', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    resultDiv.innerHTML = `
+                        <p><strong>Nama:</strong> ${data.name}</p>
+                        <p><strong>Tiket:</strong> ${data.ticket}</p>
+                        <p><strong>Jadwal:</strong> ${data.schedule}</p>
+                        <p><strong>Pesan:</strong> ${data.message}</p>
+                        <p><strong>Sisa Waktu:</strong> ${data.sisa_waktu}</p>
+                    `;
 
-    // Menampilkan tombol upload untuk konfirmasi
-    uploadButton.style.display = 'block'; // Tampilkan tombol upload
-});
+                    ctx.clearRect(0, 0, overlay.width, overlay.height);
+                    if (data.box) {
+                        const [x, y, w, h] = data.box;
+                        ctx.strokeStyle = "lime";
+                        ctx.lineWidth = 3;
+                        ctx.strokeRect(x, y, w, h);
 
-// Mengupload gambar ketika tombol upload ditekan
-uploadButton.addEventListener('click', () => {
-    const file = uploadInput.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
-
-    fetch('/upload-photo/', {
-        method: 'POST',
-        body: formData
+                        if (data.name && data.name !== "Unknown") {
+                            ctx.font = "16px Arial";
+                            ctx.fillStyle = "lime";
+                            ctx.fillText(data.name, x, y - 10);
+                        }
+                    }
+                })
+                .catch(err => {
+                    resultDiv.innerHTML = "<p><strong>Gagal mendeteksi wajah.</strong></p>";
+                    console.error(err);
+                });
+            }, 'image/jpeg');
+        }, 2000);
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        resultDiv.innerHTML = `Nama: ${data.name}, Tiket: ${data.ticket}, Jadwal: ${data.schedule}, Pesan: ${data.message}`;
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        resultDiv.innerHTML = 'Terjadi kesalahan saat mengupload gambar.';
-    });
-});
+    .catch(err => console.error('Gagal akses kamera:', err));

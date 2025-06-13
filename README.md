@@ -118,9 +118,13 @@ pip install -r back-end/requirements.txt
 
 ```bash
 cd back-end
-uvicorn main:app --reload
+uvicorn main:app --reload 
 ```
-
+atau menggunakan:
+```bash
+cd back-end
+python .\main.py
+```
 📡 Server berjalan di: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ---

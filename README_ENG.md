@@ -131,10 +131,10 @@ uvicorn main:app --reload
 4. The system will automatically recognize your face  
 5. The following information will be displayed:
    - 🧑 Name
-   - 🎫 Ticket info
-   - 🚆 Departure schedule
-   - ⏳ Time remaining
-   - 📢 Additional messages
+   - 🎫 Ticket Info
+   - 🚆 Departure Schedule
+   - ⏳ Time Remaining
+   - 📢 Additional Messages
 
 ---
 

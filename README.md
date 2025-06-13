@@ -12,7 +12,7 @@ face-recognition-app/
 │   ├── main.py
 │   ├── model.py
 │   ├── model.tflite
-│   ├── labelmap.npy
+│   ├── label_map.npy
 │   ├── jadwal_kereta.csv
 │   ├── haarcascadefrontalface_default.xml
 │   ├── Procfile
@@ -148,7 +148,7 @@ python .\main.py
 
 - Pastikan webcam aktif dan browser memiliki izin kamera.
 - Format CSV `jadwal_kereta.csv` harus sesuai (Nama, Tiket, Jadwal).
-- Model `.tflite` dan `labelmap.npy` harus sudah dilatih sebelumnya.
+- Model `.tflite` dan `label_map.npy` harus sudah dilatih sebelumnya.
 - Untuk training model, pastikan Anda menjalankan file di `ML/` secara berurutan.
 
 ---

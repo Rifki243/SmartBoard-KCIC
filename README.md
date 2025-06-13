@@ -1,4 +1,3 @@
-
 # 🎯 Face Recognition Web App (FastAPI + TensorFlow Lite)
 
 Aplikasi ini adalah sistem **pengenalan wajah berbasis web** yang mengenali pengguna secara otomatis melalui webcam atau gambar yang diunggah. Aplikasi akan mencocokkan wajah yang terdeteksi dengan data pengguna, lalu menampilkan informasi **tiket**, **jadwal keberangkatan**, dan **sisa waktu** menuju keberangkatan.
@@ -10,20 +9,26 @@ Aplikasi ini adalah sistem **pengenalan wajah berbasis web** yang mengenali peng
 ```
 face-recognition-app/
 ├── back-end/
-│   ├── main.py                     # FastAPI backend
-│   ├── model.py                    # Model TensorFlow Lite + prediksi
-│   ├── model.tflite                # Model wajah terlatih (TFLite)
-│   ├── labelmap.npy                # Mapping nama → label
-│   ├── jadwal_kereta.csv           # Data tiket dan jadwal pengguna
-│   ├── haarcascadefrontalface_default.xml # Detektor wajah (OpenCV)
-│   ├── Procfile                    # Deployment via Railway (Opsional)
-│   └── requirements.txt            # Dependensi Python
+│   ├── main.py
+│   ├── model.py
+│   ├── model.tflite
+│   ├── labelmap.npy
+│   ├── jadwal_kereta.csv
+│   ├── haarcascadefrontalface_default.xml
+│   ├── Procfile
+│   └── requirements.txt
 ├── front-end/
-│   ├── index.html                  # Antarmuka pengguna
-│   ├── script.js                   # Kamera, deteksi, dan request API
-│   └── style.css                   # Tampilan halaman
-├── Topologi.jpg                    # Gambar topologi sistem
-└── README.md                       # Dokumentasi ini
+│   ├── index.html
+│   ├── script.js
+│   └── style.css
+├── ML/
+│   ├── rekam.py                 # Rekam wajah pengguna baru
+│   ├── randomize_data.py        # Acak dataset wajah
+│   ├── preprocessing.py         # Resize & normalisasi gambar
+│   ├── training.py              # Training model TensorFlow
+│   └── prediction.py            # Evaluasi/prediksi dengan model
+├── Topologi.jpg
+└── README.md
 ```
 
 ---
@@ -38,6 +43,47 @@ Sistem ini terdiri dari dua bagian utama:
 📌 Gambar topologi sistem:
 
 ![Topologi Sistem](Topologi.jpg)
+
+---
+
+## 🧠 Pipeline Pelatihan Model (ML/)
+
+Direktori `ML/` berisi langkah-langkah untuk membangun model pengenalan wajah secara bertahap. Urutan eksekusi file adalah sebagai berikut:
+
+1. **📷 rekam.py**  
+   Rekam wajah pengguna menggunakan webcam dan simpan dalam folder dataset.
+
+2. **🔀 randomize_data.py**  
+   Mengacak dataset agar training tidak bias.
+
+3. **🧹 preprocessing.py**  
+   Resize, normalisasi, dan encode data gambar sebelum training.
+
+4. **🧠 training.py**  
+   Melatih model TensorFlow dan menyimpan hasilnya sebagai `model.tflite`.
+
+5. **🔍 prediction.py**  
+   Menguji performa model terhadap data baru.
+
+> ⚠️ Penting: Jalankan script secara berurutan untuk memastikan data dan model konsisten.
+
+
+---
+
+## 🗂️ Dataset yang Digunakan
+
+Model pengenalan wajah ini dilatih menggunakan **gabungan dua sumber dataset**:
+
+1. 📦 [LFW (Labeled Faces in the Wild) Dataset](https://www.kaggle.com/datasets/jessicali9530/lfw-dataset)  
+   Dataset publik berisi ribuan gambar wajah dari berbagai individu.
+
+2. 📸 Dataset Lokal dari `rekam.py`  
+   Gambar wajah pengguna direkam langsung melalui webcam dan disimpan sebagai data tambahan.
+
+🔁 Dataset hasil rekaman akan digabungkan dan diacak (melalui `randomize_data.py`) untuk membentuk dataset akhir yang digunakan pada proses pelatihan.
+
+> Pastikan struktur folder dataset mengikuti standar input model, dan telah melalui proses **preprocessing** sebelum training.
+
 
 ---
 
@@ -99,6 +145,7 @@ uvicorn main:app --reload
 - Pastikan webcam aktif dan browser memiliki izin kamera.
 - Format CSV `jadwal_kereta.csv` harus sesuai (Nama, Tiket, Jadwal).
 - Model `.tflite` dan `labelmap.npy` harus sudah dilatih sebelumnya.
+- Untuk training model, pastikan Anda menjalankan file di `ML/` secara berurutan.
 
 ---
 

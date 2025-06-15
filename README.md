@@ -1,4 +1,4 @@
-# 🎯 Face Recognition Web App (FastAPI + TensorFlow Lite)
+# 🚄 SmartBoard: Sistem Face Recognition untuk Boarding Kereta Cepat KCIC
 
 Aplikasi ini adalah sistem **pengenalan wajah berbasis web** yang mengenali pengguna secara otomatis melalui webcam atau gambar yang diunggah. Aplikasi akan mencocokkan wajah yang terdeteksi dengan data pengguna, lalu menampilkan informasi **tiket**, **jadwal keberangkatan**, dan **sisa waktu** menuju keberangkatan.
 
@@ -14,7 +14,7 @@ face-recognition-app/
 │   ├── model.tflite
 │   ├── label_map.npy
 │   ├── jadwal_kereta.csv
-│   ├── haarcascadefrontalface_default.xml
+│   ├── haarcascade_frontalface_default.xml
 │   ├── Procfile
 │   └── requirements.txt
 ├── front-end/

@@ -1,6 +1,6 @@
-# 🎯 Face Recognition Web App (FastAPI + TensorFlow Lite)
+# 🚄 SmartBoard: Face Recognition System for KCIC High-Speed Train Boarding
 
-This is a **web-based face recognition system** that automatically identifies users via webcam or uploaded images. The app matches detected faces against stored user data and displays related **ticket info**, **departure schedule**, and **remaining time**.
+This application is a **web-based face recognition system** that automatically identifies passengers through a webcam or uploaded image. The system matches the detected face with existing data to display the **ticket**, **departure schedule**, and **remaining time** before boarding.
 
 ---
 
@@ -14,7 +14,7 @@ face-recognition-app/
 │   ├── model.tflite
 │   ├── label_map.npy
 │   ├── jadwal_kereta.csv
-│   ├── haarcascadefrontalface_default.xml
+│   ├── haarcascade_frontalface_default.xml
 │   ├── Procfile
 │   └── requirements.txt
 ├── front-end/
@@ -22,11 +22,11 @@ face-recognition-app/
 │   ├── script.js
 │   └── style.css
 ├── ML/
-│   ├── rekam.py                 # Record new user face images
-│   ├── randomize_data.py        # Shuffle dataset
+│   ├── rekam.py                 # Capture new user face data
+│   ├── randomize_data.py        # Shuffle face dataset
 │   ├── preprocessing.py         # Resize & normalize images
 │   ├── training.py              # Train TensorFlow model
-│   └── prediction.py            # Evaluate/predict using model
+│   └── prediction.py            # Evaluate/predict with the model
 ├── Topologi.jpg
 └── README.md
 ```
@@ -35,53 +35,50 @@ face-recognition-app/
 
 ## 🧭 System Architecture
 
-The system is composed of two main components:
+The system consists of two main components:
 
-1. 🎨 **Frontend Web Interface** — Built with HTML, CSS, and JavaScript  
-2. ⚙️ **Backend API (FastAPI)** — Handles face detection and prediction processes
+1. 🎨 **Frontend Web** — HTML, CSS, and JavaScript for the user interface  
+2. ⚙️ **Backend API (FastAPI)** — Handles face detection and identity prediction
 
-📌 System topology illustration:
+📌 System topology image:
 
 ![System Topology](Topologi.jpg)
 
 ---
 
-## 🧠 ML Model Training Pipeline (ML/)
+## 🧠 Model Training Pipeline (ML/)
 
-The `ML/` directory contains the scripts for building the face recognition model step by step. Execute them in the following order:
+The `ML/` directory contains steps to build the face recognition model. The steps are as follows:
 
 1. **📷 rekam.py**  
-   Capture face images of users via webcam and save to dataset folder.
+   Capture passenger faces via webcam and store them in the dataset.
 
 2. **🔀 randomize_data.py**  
-   Shuffle image dataset to avoid training bias.
+   Shuffle the dataset to prevent training bias.
 
 3. **🧹 preprocessing.py**  
-   Resize, normalize, and encode images for training.
+   Resize, normalize, and encode the image data.
 
 4. **🧠 training.py**  
-   Train a TensorFlow model and export it as `model.tflite`.
+   Train the TensorFlow model and save it as `model.tflite`.
 
 5. **🔍 prediction.py**  
-   Test model performance with new input data.
+   Test the model’s performance on new data.
 
-> ⚠️ Important: Execute the scripts in the correct order to ensure dataset and model consistency.
+> ⚠️ Important: Execute scripts in order to ensure data and model consistency.
 
 ---
 
-## 🗂️ Dataset Information
+## 🗂️ Dataset Used
 
-The face recognition model is trained using a **combined dataset**:
+The model is trained using a combination of two facial image sources:
 
 1. 📦 [LFW (Labeled Faces in the Wild) Dataset](https://www.kaggle.com/datasets/jessicali9530/lfw-dataset)  
-   A public dataset containing thousands of labeled face images.
+2. 📸 Local dataset from `rekam.py`
 
-2. 📸 Locally Recorded Faces via `rekam.py`  
-   Custom user images captured using webcam.
+🔁 Datasets are merged and shuffled before training.
 
-🔁 The generated dataset is merged and randomized using `randomize_data.py` to form the final dataset for training.
-
-> Ensure that dataset structure follows model input standards and has been properly **preprocessed** before training.
+> Ensure the dataset folder structure matches the model input format and has been processed using `preprocessing.py`.
 
 ---
 
@@ -94,7 +91,7 @@ git clone https://github.com/username/face-recognition-app.git
 cd face-recognition-app
 ```
 
-### 2. Create a Virtual Environment
+### 2. Create Virtual Environment
 
 ```bash
 # Mac/Linux
@@ -112,42 +109,44 @@ venv\Scripts\activate
 pip install -r back-end/requirements.txt
 ```
 
-### 4. Start the FastAPI Backend
+### 4. Run FastAPI Backend
 
 ```bash
 cd back-end
-uvicorn main:app --reload
+uvicorn main:app --reload 
 ```
-Or Use:
+or:
+
 ```bash
 cd back-end
 python .\main.py
 ```
-📡 Server runs at: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+📡 Server running at: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ---
 
-## 💡 How to Use the App
+## 💡 How to Use the Application
 
-1. Open your browser and go to: [http://127.0.0.1:8000](http://127.0.0.1:8000)  
-2. Allow webcam access when prompted  
-3. Face the webcam  
-4. The system will automatically recognize your face  
-5. The following information will be displayed:
+1. Open browser and go to: [http://127.0.0.1:8000](http://127.0.0.1:8000)  
+2. Allow camera access when prompted  
+3. Face the camera directly  
+4. The system will automatically recognize the face  
+5. The following information will be shown:
    - 🧑 Name
-   - 🎫 Ticket Info
-   - 🚆 Departure Schedule
-   - ⏳ Time Remaining
-   - 📢 Additional Messages
+   - 🎫 Ticket
+   - 🚆 Departure schedule
+   - ⏳ Time remaining before boarding
+   - 📢 Additional information
 
 ---
 
-## ✅ Notes
+## ✅ Additional Notes
 
-- Make sure your webcam is active and browser has camera permission.
-- CSV format in `jadwal_kereta.csv` should follow: Name, Ticket, Schedule.
-- The `.tflite` model and `label_map.npy` must be pre-trained.
-- Run ML scripts in the `ML/` directory in the correct order for successful model creation.
+- Ensure your webcam is active and browser has camera permissions.
+- The `jadwal_kereta.csv` file must follow the format (Name, Ticket, Schedule).
+- Make sure `model.tflite` and `label_map.npy` are already trained and available.
+- Run the files in `ML/` sequentially for best results.
 
 ---
 

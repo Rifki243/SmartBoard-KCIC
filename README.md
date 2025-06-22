@@ -46,7 +46,7 @@ Sistem ini terdiri dari dua bagian utama:
 
 ---
 
-## 🧠 Pipeline Pelatihan Model (ML/)
+## 🧠 Pipeline Pelatihan Model (ML)
 
 Direktori `ML/` berisi langkah-langkah untuk membangun model pengenalan wajah secara bertahap. Urutan eksekusi file adalah sebagai berikut:
 

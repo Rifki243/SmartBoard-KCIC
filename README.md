@@ -153,6 +153,12 @@ python .\main.py
 
 ---
 
-## 📌 Lisensi
+## 📌 License
 
-GNU General Public License v3.0 – [AidlF4jr1i / CC25-CR349]
+Proyek ini dilisensikan di bawah GNU General Public License versi 3.0 (GPLv3).
+
+Dikembangkan secara kolaboratif oleh:
+- [AidlF4jr1i](https://github.com/AidlF4jr1i)
+- [Rifki243](https://github.com/Rifki243)
+
+© 2025 AidlF4jr1i & Rifki243 – Semua hak dilindungi di bawah lisensi GPLv3.
